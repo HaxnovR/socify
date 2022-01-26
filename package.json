@@ -1,0 +1,22 @@
+{
+  "name": "socify",
+  "version": "1.0.0",
+  "description": "Socialize with Spotify",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HaxnovR/socify.git"
+  },
+  "author": "HaxnovR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HaxnovR/socify/issues"
+  },
+  "homepage": "https://github.com/HaxnovR/socify#readme",
+  "dependencies": {
+    "dotenv": "^14.3.2"
+  }
+}
