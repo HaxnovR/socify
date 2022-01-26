@@ -16,6 +16,11 @@ All rights reserved.
 h1{
     font-family: Circ;
 }
+
+div{
+    align-items: center;
+}
+
 nav{
     width:80% ;
     position: sticky;
