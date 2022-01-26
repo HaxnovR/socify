@@ -6,10 +6,17 @@ var spotifyApi = new SpotifyWebApi({
     clientSecret: process.env.spotify_secret,
 });
 
+function myFunction() {
+    document.getElementById("myText").value = "Johnny Bravo";
+    console.log("Debug Test");
+}
+
 
 async function getSpotify(){
 
-    let qry = document.getElementById('textbox_id').value
+    document.getElementById("myText").value = "Johnny Bravo";
+
+    let qry = "travis";
 
     spotifyApi.clientCredentialsGrant().then(
         function(data) {
@@ -40,4 +47,4 @@ async function getSpotify(){
     );
 }
 
-getSpotify();
+myFunction();
