@@ -6,33 +6,38 @@ var spotifyApi = new SpotifyWebApi({
     clientSecret: process.env.spotify_secret,
 });
 
-let qry = "travis"
 
+async function getSpotify(){
 
-spotifyApi.clientCredentialsGrant().then(
-    function(data) {
-        console.log('token = ' + data.body['access_token']);
+    let qry = document.getElementById('textbox_id').value
 
-        spotifyApi.setAccessToken(data.body['access_token']);
-
-        async function getSearch(){
-            let resp = await spotifyApi.searchTracks(qry,{ limit: 10, offset: 2 });
-            let dat = resp.body.tracks.items;
-            if(dat.length==0){
-                message.channel.send("No Results Found");
-                return;
+    spotifyApi.clientCredentialsGrant().then(
+        function(data) {
+            console.log('token = ' + data.body['access_token']);
+    
+            spotifyApi.setAccessToken(data.body['access_token']);
+    
+            async function getSearch(){
+                let resp = await spotifyApi.searchTracks(qry,{ limit: 10, offset: 2 });
+                let dat = resp.body.tracks.items;
+                if(dat.length==0){
+                    message.channel.send("No Results Found");
+                    return;
+                }
+                dat.forEach(index => {
+                    console.log(index.name);
+                });
             }
-            dat.forEach(index => {
-                console.log(index.name);
-            });
+            getSearch();
+    
+        },
+    
+    
+        function(err) {
+            console.log('Token Error--->', err);
         }
-        getSearch();
+    
+    );
+}
 
-    },
-
-
-    function(err) {
-        console.log('Token Error--->', err);
-    }
-
-);
+getSpotify();
