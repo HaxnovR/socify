@@ -1,0 +1,18 @@
+/*
+Copyright (c) 2021, NIOS E-Labs
+All rights reserved.
+*/
+
+
+@font-face {
+    font-family: Moon;
+    src: url(../assets/Moon\ Light.otf);
+}
+@font-face{
+    font-family: Circ;
+    src: url(../assets/CircularStd-Black.otf);
+}
+
+h1{
+    font-family: Circ;
+}
