@@ -13,32 +13,63 @@ All rights reserved.
     src: url(../assets/CircularStd-Black.otf);
 }
 
+* {margin:0;padding:0;}
+
 h1{
+    font-family: Circ;
+    font-size: 85px;
+    margin: 0px 0px 0px 0px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+ul li {
+    list-style: none;
+    display: inline;
+    margin: 0px 20px 0px 0px;
+}
+
+a:link {
+    color: black;
+    margin: 0px 20px 0px 0px;
+}
+a:hover {
+    color: white;
+    background: black;
+    border-style:solid;
+    border-width: 10px;
+    border-color: black;
+    border-radius: 50px;
+    margin: 0px 20px 0px 0px;
+  }
+
+.search{
+    text-align: center;
+    align-items: center;
+    margin: auto;
+    margin-right: 20px;
+}
+
+.head{
+    margin: auto;
+    text-align: center;
+    align-items: center;
     font-family: Circ;
 }
 
-div{
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    background-color: #eda18e;
+    font-family: Circ;
+}
+.welcome{
+    font-family: Circ;
+    font-size: 85px;
     align-items: center;
     text-align: center;
-    margin: 10px auto;
-}
-
-nav{
-    width:80% ;
-    position: sticky;
-    margin: 20px auto;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 15px;
-    
-
-}
-nav-links{
-    flex: 1;
-    text-align: right;
+    margin-top: 35vh;
 }
 .nav-links ul li{
     list-style-type: none;
