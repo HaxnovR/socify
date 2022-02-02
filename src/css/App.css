@@ -22,6 +22,7 @@ All rights reserved.
 }
 
 html{
+  scroll-behavior: smooth;
   overflow-x: hidden;
   overflow-y: scroll;
   -ms-overflow-style: none;
@@ -68,17 +69,21 @@ html ::-webkit-scrollbar{
 
 
 .vid_contain {
+  background: url("https://gotiny.cc/m5xwtn");
   filter: blur(15px);
   z-index: -5;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: -40px;
   bottom: -40px;
-  /* margin: auto; */
-  min-height: 100vh;
+  width: 200vw;
+  /* min-height: 100vh;
   min-width: 100vw;
-  max-height: 100vh;
+  max-height: 100vh; */
   animation: background 20s infinite alternate;
+}
+.limitHeight{
+  max-height: 100vh;
 }
 
 
@@ -149,14 +154,33 @@ html ::-webkit-scrollbar{
   border-color: rgb(255, 255, 255);
 }
 
-.nav-links ul li{
-  list-style-type: none;
-  display: inline-block;
-  margin: 0 20px;
+.info{
+  background-color: #141414;
+  position: relative;
+  background-size: cover;
+  height: 100vh;
+  top: 100vh;
+  color: white;
 }
-.nav-links ul li a{
-  color: #1db954;
-  text-decoration: none;
+.infoText{
+  font-size: 46px;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-image: url("https://gotiny.cc/m5xwtn");
+}
+.center{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.Authors{
+  text-align: center;
+  margin-top: 15px;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  font-size: 20px;
+  font-weight: 50;
+  font-style: italic;
 }
 
 @keyframes background{

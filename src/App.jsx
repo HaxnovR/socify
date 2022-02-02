@@ -1,5 +1,5 @@
 import './css/App.css';
-let bg = "https://images.unsplash.com/photo-1642615835477-d303d7dc9ee9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+let bg = "https://gotiny.cc/m5xwtn"
 
 function App() {
   return (
@@ -23,8 +23,14 @@ function App() {
           <h1 className='intro'>Welcome to Socify</h1>
           <a className="login" href="/login">Log in</a>
       </div>
-      <div className="vid_contain">
-          <img src={bg} alt='background'></img>
+      <div className='limitHeight'>
+        <div className="vid_contain"></div>
+      </div>
+      <div className='info'>
+        <div className='center'>
+          <p className='infoText'>Public Listen Along Lobbies for Spotify</p>
+          <p className='Authors'>A project by HaxnovR, AhmadPupg & Ilamadisimo</p>
+        </div>
       </div>
         
     </div>
