@@ -36,7 +36,7 @@ html ::-webkit-scrollbar{
   margin-left: 5px;
   margin-right: 0px;
   color: white;
-  font-size: 85px;
+  font-size: 65px;
   padding-left: 10px;
   padding-top: 10px;
 }
@@ -68,17 +68,17 @@ html ::-webkit-scrollbar{
 
 
 .vid_contain {
-  filter: blur(10px);
+  filter: blur(15px);
   z-index: -5;
   position: absolute;
   top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: auto;
+  left: -40px;
+  bottom: -40px;
+  /* margin: auto; */
   min-height: 100vh;
   min-width: 100vw;
   max-height: 100vh;
+  animation: background 20s infinite alternate;
 }
 
 
@@ -87,7 +87,7 @@ html ::-webkit-scrollbar{
   margin-right: 20px;
   text-align: center;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 55px;
 }
 #search{
   color: white;
@@ -122,17 +122,31 @@ html ::-webkit-scrollbar{
   left: 50%; 
   transform: translate(-50%, -50%);
   text-align: center;
-  filter: drop-shadow(0px 0px 10px #00000027);
+  filter: drop-shadow(0px 0px 10px #0000004f);
 }
+.intro{
+  margin-top: 90px;
+  font-size: 80px;
+  color: white;
+}
+
+
 .login:link{
   color: rgb(255, 255, 255);
   text-decoration: none;
   background: #141414;
   padding: 10px 10px 10px 10px;
   border-radius: 50px;
+  transition: background 0.45s, color 0.45s;
 }
 .login:visited{
   color: rgb(255, 255, 255);
+}
+.login:hover {
+  color: black;
+  background: rgb(255, 255, 255);
+  border-style:solid;
+  border-color: rgb(255, 255, 255);
 }
 
 .nav-links ul li{
@@ -143,4 +157,13 @@ html ::-webkit-scrollbar{
 .nav-links ul li a{
   color: #1db954;
   text-decoration: none;
+}
+
+@keyframes background{
+  0%{
+    top: 0px;
+  }
+  100%{
+    top: -500px;
+  }
 }

@@ -20,7 +20,7 @@ function App() {
         </header>
 
       <div className="welcome">
-          <h1>Welcome to Socify</h1>
+          <h1 className='intro'>Welcome to Socify</h1>
           <a className="login" href="/login">Log in</a>
       </div>
       <div className="vid_contain">
