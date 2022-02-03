@@ -4,7 +4,7 @@ module.exports = function (app) {
     app.use('/auth/**', 
         createProxyMiddleware({ 
             // target: 'http://localhost:5000'
-            target: 'https://testsocify.herokuapp.com'
+            target: 'https://testsocify.herokuapp.com:80'
         })
     );
 };
