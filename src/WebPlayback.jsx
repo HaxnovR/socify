@@ -43,7 +43,7 @@ function WebPlayback(props) {
         window.onSpotifyWebPlaybackSDKReady = () => {
 
             const player = new window.Spotify.Player({
-                name: 'Web Playback SDK',
+                name: 'Socify Web',
                 getOAuthToken: cb => { cb(props.token); },
                 volume: 0.5
             });
