@@ -3,8 +3,8 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 module.exports = function (app) {
     app.use('/auth/**', 
         createProxyMiddleware({ 
-            target: 'http://localhost:5000'
-            // target: 'https://testsocify.herokuapp.com:80'
+            // target: 'http://localhost:5000'
+            target: 'https://testsocify.herokuapp.com'
         })
     );
 };
