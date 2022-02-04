@@ -2,17 +2,18 @@ const express = require('express')
 const request = require('request');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-
-const port = 5000
+const path = require('path');
 
 global.access_token = ''
 
 dotenv.config()
 
+const port = process.env.PORT || 5000;
+
 var spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
 var spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 
-var spotify_redirect_uri = 'https://socify.pages.dev/auth/callback'
+var spotify_redirect_uri = 'https://testsocify.herokuapp.com/auth/callback'
 // var spotify_redirect_uri = 'http://localhost:5000/auth/callback'
 
 var generateRandomString = function (length) {
@@ -27,7 +28,10 @@ var generateRandomString = function (length) {
 
 var app = express();
 
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 app.use(bodyParser.json());
 
 app.get('/auth/login', (req, res) => {
