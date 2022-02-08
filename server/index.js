@@ -1,18 +1,16 @@
 const express = require('express')
 const request = require('request');
 const dotenv = require('dotenv');
-const path = require('path');
+
+const port = 5000
 
 global.access_token = ''
 
 dotenv.config()
 
-const port = 5000;
+var spotify_client_id = process.env.SPOTIFY_CLIENT_ID
+var spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
 
-var spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
-var spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-
-// var spotify_redirect_uri = 'https://testsocify.herokuapp.com/auth/callback'
 var spotify_redirect_uri = 'http://localhost:3000/auth/callback'
 
 var generateRandomString = function (length) {
@@ -27,11 +25,6 @@ var generateRandomString = function (length) {
 
 var app = express();
 
-// app.use(express.static(path.join(__dirname, '../build')));
-// app.get('/', function (req, res) {
-//   res.sendFile(path.join(__dirname, '../build', 'index.html'));
-// });
-
 app.get('/auth/login', (req, res) => {
 
   var scope = "streaming user-read-email user-read-private"
@@ -44,7 +37,6 @@ app.get('/auth/login', (req, res) => {
     redirect_uri: spotify_redirect_uri,
     state: state
   })
-  console.log("Loggin in!!!");
 
   res.redirect('https://accounts.spotify.com/authorize/?' + auth_query_parameters.toString());
 })
@@ -73,7 +65,6 @@ app.get('/auth/callback', (req, res) => {
       res.redirect('/')
     }
   });
-  console.log("CallBack Successful");
 
 })
 
