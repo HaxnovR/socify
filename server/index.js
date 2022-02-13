@@ -1,76 +1,80 @@
-const express = require('express')
-const request = require('request');
+const SpotifyWebApi = require('spotify-web-api-node');
+const express = require('express');
 const dotenv = require('dotenv');
-const port = 5000
+const port = 5000;
 
-global.access_token = ''
+var access_token = '';
+var refresh_token = '';
 
 dotenv.config()
 
-var spotify_client_id = process.env.SPOTIFY_CLIENT_ID
-var spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
+const app = express();
 
-var spotify_redirect_uri = 'http://localhost:3000/auth/callback'
+const spotify_client_id = process.env.SPOTIFY_CLIENT_ID
+const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
+const spotify_redirect_uri = 'http://localhost:5000/auth/callback'
 
-var generateRandomString = function (length) {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const randomState = function (length) {
+    var text = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  for (var i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
+    for (var i = 0; i < length; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return text;
 };
 
-var app = express();
+const scopes = ['user-read-private', 'user-read-email',
+'user-modify-playback-state','user-read-playback-state','user-read-currently-playing'
+,'streaming'],
+  redirectUri = spotify_redirect_uri,
+  clientId = spotify_client_id,
+  state = randomState(16),
+  showDialog = true;
+
+// Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
+var spotifyApi = new SpotifyWebApi({
+  redirectUri: redirectUri,
+  clientId: clientId,
+  clientSecret: spotify_client_secret
+});
+
+// Create the authorization URL
+var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state, showDialog);
+
+console.log(authorizeURL);
 
 app.get('/auth/login', (req, res) => {
-
-  var scope = "streaming user-read-email user-read-private"
-  var state = generateRandomString(16);
-
-  var auth_query_parameters = new URLSearchParams({
-    response_type: "code",
-    client_id: spotify_client_id,
-    scope: scope,
-    redirect_uri: spotify_redirect_uri,
-    state: state
-  })
-
-  res.redirect('https://accounts.spotify.com/authorize/?' + auth_query_parameters.toString());
+    var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state, showDialog);
+    res.redirect(authorizeURL.toString());
 })
 
 app.get('/auth/callback', (req, res) => {
 
-  var code = req.query.code;
-
-  var authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    form: {
-      code: code,
-      redirect_uri: spotify_redirect_uri,
-      grant_type: 'authorization_code'
+    var code = req.query.code;
+    
+    spotifyApi.authorizationCodeGrant(code).then(
+    function(data) {
+  
+      // Set the access token on the API object to use it in later calls
+      spotifyApi.setAccessToken(data.body['access_token']);
+      spotifyApi.setRefreshToken(data.body['refresh_token']);
+      access_token = data.body.access_token;
+      refresh_token = data.body.refresh_token;
+      res.redirect('/');
     },
-    headers: {
-      'Authorization': 'Basic ' + (Buffer.from(spotify_client_id + ':' + spotify_client_secret).toString('base64')),
-      'Content-Type' : 'application/x-www-form-urlencoded'
-    },
-    json: true
-  };
-
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      access_token = body.access_token;
-      res.redirect('/')
+    function(err) {
+      console.log('Something went wrong!', err);
     }
-  });
-
-})
+  );
+});
 
 app.get('/auth/token', (req, res) => {
-  res.json({ access_token: access_token})
+  res.json({ access_token: access_token,
+    refresh_token: refresh_token
+  });
 })
 
 app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`)
-})
+    console.log(`Listening at http://localhost:${port}`)
+});

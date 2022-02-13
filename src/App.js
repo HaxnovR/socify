@@ -6,6 +6,7 @@ import Home from './Home';
 
 function App() {
   const [token, setToken] = useState('');
+  const [refresh, setRefresh] = useState('');
 
   useEffect(() => {
 
@@ -13,6 +14,7 @@ function App() {
       const response = await fetch('/auth/token');
       const json = await response.json();
       setToken(json.access_token);
+      setRefresh(json.refresh_token);
     }
 
     getToken();
@@ -21,7 +23,7 @@ function App() {
 
   return (
     <>
-        { (token === '') ? <Home/> : <WebPlayback token={token} /> }
+        { (token === '') ? <Home/> : <WebPlayback token={token} refresh={refresh}/> }
     </>
   );
 }
