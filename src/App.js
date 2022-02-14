@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './css/App.css';
 import WebPlayback from './WebPlayback'
-import Home from './Home';
+import Home from './parts/unlogged';
 
 
 function App() {
   const [token, setToken] = useState('');
   const [refresh, setRefresh] = useState('');
+
+  const tokens = {
+    access: token,
+    refresh: refresh
+  }
+
+  const TokenContext = React.createContext(tokens)
 
   useEffect(() => {
 

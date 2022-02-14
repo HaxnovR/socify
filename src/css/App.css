@@ -31,6 +31,10 @@ html{
 html ::-webkit-scrollbar{
   display: none;
 }
+a{
+  text-decoration: none;
+  color: white;
+}
 
 .Logo{
   margin: auto;
@@ -69,7 +73,7 @@ html ::-webkit-scrollbar{
 
 
 .vid_contain {
-  background: url("https://gotiny.cc/m5xwtn");
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://gotiny.cc/m5xwtn");
   filter: blur(15px);
   z-index: -5;
   position: fixed;
@@ -250,10 +254,21 @@ html ::-webkit-scrollbar{
 }
 
 .Username{
+  font-size: 22px;
   text-align:left;
   position: absolute;
   bottom: 0; left: 0;
   color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Username>img{
+  border-radius: 100%;
+}
+.Username>a{
+  padding-left: 10px;
 }
 
 

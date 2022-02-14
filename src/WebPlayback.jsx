@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
+import Header from './parts/header';
 
 
 const track = {
@@ -14,40 +15,45 @@ const track = {
     ]
 }
 
-var username = '';
-var user_img = '';
+var userinfo = {
+    name: "",
+    image: "",
+    url: "",
+    premium: false
+}
 
 function WebPlayback(props) {
-
-    // To Load Current Playing Data as soon as page is loaded
-    useEffect(() => {
-        getCurrentlyPlaying();
-        spotifyApi.getMyCurrentPlaybackState().then(function(data) {
-            if (data.body && data.body.is_playing) {
-                setPaused(false);
-            } else {
-                setPaused(true);
-            }
-        });
-    })
-    
-    // spotifyApi.getMe().then(function(data) {
-    //     console.log(data.body);
-    // });
+    const [token, setToken] = useState(props.token);
 
     var spotifyApi = new SpotifyWebApi();
-    spotifyApi.setAccessToken(props.token);
+    spotifyApi.setAccessToken(token);
     spotifyApi.setRefreshToken(props.refresh);
+    
 
-    // const getName = async () => {
-    //     let data = await spotifyApi.getMe();
-    //     return data.body.display_name;
-    // }
+    // To Load Current Playing Data as soon as page is loaded
+    // DO NOT ADD OTHER FUNCTIONS
+    // Reloads every 1 second to refresh current track
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getCurrentlyPlaying();
+            spotifyApi.getMyCurrentPlaybackState().then(function(data) {
+                if (data.body && data.body.is_playing) {
+                    setPaused(false);
+                } else {
+                    setPaused(true);
+                }
+            });
+          }, 1000);
+          return () => clearInterval(interval);
+    }, [])
+    
+
+    // Initialize Spotify Api using token from props (App.js)
 
     const [is_paused, setPaused] = useState(false);
     const [is_active, setActive] = useState(false);
     const [player, setPlayer] = useState(undefined);
-    var [current_track, setTrack] = useState(track);
+    const [current_track, setTrack] = useState(track);
 
     useEffect(() => {
 
@@ -62,7 +68,7 @@ function WebPlayback(props) {
             const player = new window.Spotify.Player({
                 name: 'Socify Web',
                 getOAuthToken: cb => { cb(props.token); },
-                volume: 1.0
+                volume: 0.5
             });
 
             setPlayer(player);
@@ -95,7 +101,23 @@ function WebPlayback(props) {
         };
     }, []);
 
-
+    useEffect(() => {
+        getUserinfo();
+    }, []);
+    async function getUserinfo(){
+        spotifyApi.getMe().then(function(data) {
+            let temp = data.body;
+            userinfo.name = temp.display_name;
+            userinfo.image = temp.images[0].url;
+            userinfo.url = temp.external_urls.spotify;
+            if(temp.product === 'premium')userinfo.premium=true;
+            console.log(userinfo);
+        });
+        // spotifyApi.refreshAccessToken().then(function(data) {
+        //       console.log('The access token has been refreshed!');
+        //     }
+        // );
+    }
     async function setPlayPause(){
         spotifyApi.getMyCurrentPlaybackState().then(function(data) {
             if (data.body && data.body.is_playing) {
@@ -108,6 +130,8 @@ function WebPlayback(props) {
             });
             }
         });
+        const currentURL = window.location.href;
+        console.log(currentURL);
     }
     async function getCurrentlyPlaying(){
         spotifyApi.getMyCurrentPlayingTrack()
@@ -130,21 +154,9 @@ function WebPlayback(props) {
     return (
         <>
             <div className="App">
-               <header className="flex">
-                   <h1 className='Logo'>Socify.</h1>
-                   <nav className="head">
-                       <a className='Button' href="/explore">Home</a>
-                       <a className='Button' href="/explore">Listen along</a>
-                       <a className='Button' href="/explore">Explore</a>
-                       <a className='Button' href="/Lobbies">Lobbies</a>
-                   </nav>
-                   <div className="search">
-                       <input type="text" id="search" placeholder="Search"/>
-                   </div>
-               </header>
-
+            <Header/>
              <div className="welcome">
-                 <h1  className='intro'>Create Your Session</h1>
+                 <h1 className='intro'>Create Your Session</h1>
                  <a className="login" href="/Start">Start Session</a>
              </div>
              <div className='limitHeight'>
@@ -152,8 +164,8 @@ function WebPlayback(props) {
              </div>
             </div>
             <div className='Username'>
-                <img/>
-                <h3>Username</h3>
+                <img src={userinfo.image} alt='' width='40px'/>
+                <a href={userinfo.url} target="_blank" rel="noopener noreferrer">{userinfo.name}</a>
             </div>
             <div className="player">
                 <div className="main-wrapper">
