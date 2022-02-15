@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './css/App.css';
-import WebPlayback from './WebPlayback'
+import LoggedMain from './parts/loggedMain'
 import Home from './parts/unlogged';
 
 
@@ -30,7 +30,7 @@ function App() {
 
   return (
     <>
-        { (token === '') ? <Home/> : <WebPlayback token={token} refresh={refresh}/> }
+        { (token === '') ? <Home/> : <LoggedMain token={token} refresh={refresh}/> }
     </>
   );
 }

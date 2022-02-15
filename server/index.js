@@ -26,7 +26,7 @@ const randomState = function (length) {
 
 const scopes = ['user-read-private', 'user-read-email',
 'user-modify-playback-state','user-read-playback-state','user-read-currently-playing'
-,'streaming'],
+,'streaming','user-read-recently-played'],
   redirectUri = spotify_redirect_uri,
   clientId = spotify_client_id,
   state = randomState(16),

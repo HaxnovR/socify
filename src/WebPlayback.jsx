@@ -5,17 +5,13 @@ import Header from './parts/header';
 
 const track = {
     name: "",
-    album: {
-        images: [
-            { url: "" }
-        ]
-    },
+    image: "",
     artists: [
         { name: "" }
     ]
 }
 
-var userinfo = {
+const userinfo = {
     name: "",
     image: "",
     url: "",
@@ -44,6 +40,16 @@ function WebPlayback(props) {
                 }
             });
           }, 1000);
+          spotifyApi.getMyRecentlyPlayedTracks({
+            limit : 1
+          }).then(function(data) {
+              let temp = data.body.items[0].track;
+              track.name = temp.name;
+              track.image = temp.album.images[0].url;
+              track.artists[0].name = temp.artists[0].name;
+            }, function(err) {
+              console.log('Something went wrong!', err);
+            });
           return () => clearInterval(interval);
     }, [])
     
@@ -111,7 +117,6 @@ function WebPlayback(props) {
             userinfo.image = temp.images[0].url;
             userinfo.url = temp.external_urls.spotify;
             if(temp.product === 'premium')userinfo.premium=true;
-            console.log(userinfo);
         });
         // spotifyApi.refreshAccessToken().then(function(data) {
         //       console.log('The access token has been refreshed!');
@@ -130,55 +135,48 @@ function WebPlayback(props) {
             });
             }
         });
-        const currentURL = window.location.href;
-        console.log(currentURL);
+    }
+    async function setNext(){
+        spotifyApi.skipToNext();
+    }
+    async function setPrevious(){
+        spotifyApi.skipToPrevious();
     }
     async function getCurrentlyPlaying(){
         spotifyApi.getMyCurrentPlayingTrack()
         .then(function(data) {
             setTrack(
-                {...current_track,
+                {
                 name: data.body.item.name,
-                album: {
-                    images: [
-                        { url: data.body.item.album.images[0].url }
-                    ]
-                },
+                image: data.body.item.album.images[0].url,
                 artists: [
                     { name: data.body.item.artists[0] }
                 ]
 
             })
+        },
+        function(err){
+            console.log(err);
         });
     }
     return (
         <>
-            <div className="App">
-            <Header/>
-             <div className="welcome">
-                 <h1 className='intro'>Create Your Session</h1>
-                 <a className="login" href="/Start">Start Session</a>
-             </div>
-             <div className='limitHeight'>
-               <div className="vid_contain"></div>
-             </div>
-            </div>
             <div className='Username'>
                 <img src={userinfo.image} alt='' width='40px'/>
                 <a href={userinfo.url} target="_blank" rel="noopener noreferrer">{userinfo.name}</a>
             </div>
             <div className="player">
                 <div className="main-wrapper">
-                    <img src={current_track.album.images[0].url} className="now-playing-cover" alt="Cover Art" />
+                    <img src={current_track.image} className="now-playing-cover" alt="Cover Art" />
                     <div className="now-playing-side">
                         <div className="now-playing__name">{current_track.name}</div>
-                        <div className="now-playing__artist">{current_track.artists[0].name.name}</div>
-                        <button className="btn-back" onClick={() => { player.previousTrack() }} >
+                        <div className="now-playing__artist">{current_track.artists[0].name}</div>
+                        <button className="btn-back" onClick={() => { setPrevious() }} >
                         </button>
                         <button className='def-btn' onClick={setPlayPause} >
                             { is_paused ? <div className='btn-play'/> : <div className='btn-pause'/> }
                         </button>
-                        <button className="btn-forward" onClick={() => { player.nextTrack() }} >
+                        <button className="btn-forward" onClick={() => { setNext() }} >
                         </button>
                     </div>
                 </div>
