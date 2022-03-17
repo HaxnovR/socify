@@ -151,7 +151,6 @@ function WebPlayback(props) {
                 artists: [
                     { name: data.body.item.artists[0] }
                 ]
-
             })
         },
         function(err){
@@ -169,7 +168,7 @@ function WebPlayback(props) {
                     <img src={current_track.image} className="now-playing-cover" alt="Cover Art" />
                     <div className="now-playing-side">
                         <div className="now-playing__name">{current_track.name}</div>
-                        <div className="now-playing__artist">{current_track.artists[0].name}</div>
+                        <div className="now-playing__artist">{current_track.artists[0].name.name}</div>
                         <button className="btn-back" onClick={() => { setPrevious() }} >
                         </button>
                         <button className='def-btn' onClick={setPlayPause} >
