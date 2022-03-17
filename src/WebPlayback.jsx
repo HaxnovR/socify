@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
-import Header from './parts/header';
 
 
 const track = {
