@@ -1,1 +1,1 @@
-web: node src/index.js && node server/index.js
+web: npm run dev
