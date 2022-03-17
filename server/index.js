@@ -12,7 +12,7 @@ const app = express();
 
 const spotify_client_id = process.env.SPOTIFY_CLIENT_ID
 const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
-const spotify_redirect_uri = 'http://localhost:3000/auth/callback'
+const spotify_redirect_uri = 'https://testsocify.herokuapp.com:3000/auth/callback'
 
 const randomState = function (length) {
     var text = '';
