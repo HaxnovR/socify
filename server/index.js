@@ -2,12 +2,14 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
-const port = 3000;
 
 var access_token = '';
 var refresh_token = '';
 
 dotenv.config()
+
+const port = process.env.PORT;
+console.log('Found on PORT =',port);
 
 const app = express();
 
