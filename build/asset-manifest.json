@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c8ed2626.css",
-    "main.js": "/static/js/main.e2277d45.js",
+    "main.css": "/static/css/main.a32b0928.css",
+    "main.js": "/static/js/main.0919f704.js",
     "static/js/787.0c3f432a.chunk.js": "/static/js/787.0c3f432a.chunk.js",
     "static/media/CircularStd-Black.otf": "/static/media/CircularStd-Black.757b8ac8efa71be3fcd0.otf",
     "static/media/Moon Light.otf": "/static/media/Moon Light.b64abc268d3e51c92d4c.otf",
@@ -10,12 +10,12 @@
     "static/media/video.svg": "/static/media/video.415155b45a80eddc1d1a.svg",
     "static/media/forward.svg": "/static/media/forward.b9791d103ee28a5e99d8.svg",
     "static/media/back.svg": "/static/media/back.59654869a324dd270ca6.svg",
-    "main.c8ed2626.css.map": "/static/css/main.c8ed2626.css.map",
-    "main.e2277d45.js.map": "/static/js/main.e2277d45.js.map",
+    "main.a32b0928.css.map": "/static/css/main.a32b0928.css.map",
+    "main.0919f704.js.map": "/static/js/main.0919f704.js.map",
     "787.0c3f432a.chunk.js.map": "/static/js/787.0c3f432a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c8ed2626.css",
-    "static/js/main.e2277d45.js"
+    "static/css/main.a32b0928.css",
+    "static/js/main.0919f704.js"
   ]
 }

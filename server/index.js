@@ -1,7 +1,8 @@
 const SpotifyWebApi = require('spotify-web-api-node');
 const express = require('express');
 const dotenv = require('dotenv');
-const port = 5000;
+const path = require('path');
+const port = 3000;
 
 var access_token = '';
 var refresh_token = '';
@@ -12,7 +13,13 @@ const app = express();
 
 const spotify_client_id = process.env.SPOTIFY_CLIENT_ID
 const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
-const spotify_redirect_uri = 'https://testsocify.herokuapp.com:3000/auth/callback'
+const spotify_redirect_uri = 'https://testsocify.herokuapp.com/auth/callback'
+// const spotify_redirect_uri = 'http://localhost:3000/auth/callback'
+
+app.use(express.static(path.join(__dirname, '../build')));
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 
 const randomState = function (length) {
     var text = '';
