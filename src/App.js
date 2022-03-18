@@ -22,12 +22,15 @@ function App() {
 
   const Foundtoken = () => {
     if(localStorage.getItem('AuthCode')){
+      console.log('1');
       return(<LoggedMain token={LocalToken}/>);
     }
     if(code){
+      console.log('2');
       return(<LoggedMain code={code}/>);
     }
     else{
+      console.log('3');
       return(<Home/>);
     }
   }

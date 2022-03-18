@@ -7,11 +7,11 @@ import { useRef } from "react/cjs/react.production.min";
 const LoggedMain = (props) =>{
     let accessToken
     if(props.token !== undefined){
-        console.log('Local Token Found');
+        console.log('Local Token Found :',props.token);
         accessToken = props.token;
     }
     else{
-        console.log('Used new Token from Code');
+        console.log('Used new Token from Code:',props.code);
         accessToken = UseAuth(props.code);
     }
     const [isLoading, setIsLoading] = React.useState(true);
