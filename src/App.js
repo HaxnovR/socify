@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import './css/App.css';
 import LoggedMain from './parts/loggedMain'
 import Home from './parts/unlogged';
@@ -13,7 +14,9 @@ function App() {
     refresh: refresh
   }
 
-  const TokenContext = React.createContext(tokens)
+  // const TokenContext = React.createContext(tokens)
+
+  const code = new URLSearchParams(window.location.search).get('code');
 
   useEffect(() => {
 
@@ -30,7 +33,7 @@ function App() {
 
   return (
     <>
-        { (token === '') ? <Home/> : <LoggedMain token={token} refresh={refresh}/> }
+        { code ? <LoggedMain code={code}/> : <Home/> }
     </>
   );
 }

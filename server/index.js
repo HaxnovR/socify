@@ -2,22 +2,26 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
-var bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
+const cors = require('cors');
 
 var access_token = '';
 var refresh_token = '';
 
-dotenv.config()
+dotenv.config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 console.log('Found on PORT =',port);
 
 const app = express();
 
-const spotify_client_id = process.env.SPOTIFY_CLIENT_ID
-const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
+const spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
+const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 // const spotify_redirect_uri = 'https://testsocify.herokuapp.com/auth/callback'
-const spotify_redirect_uri = 'http://localhost:3000/auth/callback'
+const spotify_redirect_uri = 'http://localhost:3000/'
+
+app.use(cors());
+app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -65,35 +69,53 @@ app.get('/auth/login', (req, res) => {
     res.redirect(authorizeURL.toString());
 })
 
-app.get('/auth/callback', (req, res) => {
-
-    var code = req.query.code;
-    
-    spotifyApi.authorizationCodeGrant(code).then(
-    function(data) {
+app.post('/auth/cred', (req,res) => {
+  //  setup 
   
-      // Set the access token on the API object to use it in later calls
-      spotifyApi.setAccessToken(data.body['access_token']);
-      spotifyApi.setRefreshToken(data.body['refresh_token']);
-      access_token = data.body.access_token;
-      refresh_token = data.body.refresh_token;
-      res.redirect('/');
-    },
-    function(err) {
-      console.log('Something went wrong!', err);
-    }
-  );
-});
+  //  Get the "code" value posted from the client-side and get the user's accessToken from the spotify api     
+      const code = req.body.code
+  
+      // Retrieve an access token
+      spotifyApi.authorizationCodeGrant(code).then((data) => {
+  
+          // Returning the User's AccessToken in the json formate  
+          res.json({
+              accessToken : data.body.access_token,
+          }) 
+      })
+      .catch((err) => {
+          console.log(err);
+          res.sendStatus(400)
+      })
+  
+  })
 
-app.get('/auth/token', (req, res) => {
-  res.json({ access_token: access_token,
-    refresh_token: refresh_token
-  });
-})
+// app.get('/auth/callback', (req, res) => {
 
-// app.get('/auth/cred', (req, res) => {
-//   console.log(req.body);
-// })
+//     var code = req.query.code;
+//     res.send(code);
+    
+//     spotifyApi.authorizationCodeGrant(code).then(
+//     function(data) {
+  
+//       // Set the access token on the API object to use it in later calls
+//       spotifyApi.setAccessToken(data.body['access_token']);
+//       spotifyApi.setRefreshToken(data.body['refresh_token']);
+//       access_token = data.body.access_token;
+//       refresh_token = data.body.refresh_token;
+//       res.redirect('/');
+//     },
+//     function(err) {
+//       console.log('Something went wrong!', err);
+//     }
+//   );
+// });
+
+// app.get('/auth/token', (req, res) => {
+//   res.json({ access_token: access_token,
+//     refresh_token: refresh_token
+//   });
+// });
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)

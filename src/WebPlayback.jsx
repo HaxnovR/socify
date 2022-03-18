@@ -17,18 +17,26 @@ const userinfo = {
     premium: false
 }
 
-function WebPlayback(props) {
-    const [token, setToken] = useState(props.token);
-
+const WebPlayback = (props, {token}) => {
+    // console.log('LOGGED:',props.token);
     var spotifyApi = new SpotifyWebApi();
-    spotifyApi.setAccessToken(token);
-    spotifyApi.setRefreshToken(props.refresh);
-    
+
+    // let token = 
+
+    // useEffect(() => {
+    //     if (!props.token) return;
+    //     console.log("ACCESS TOKEN SET!!");
+    //     spotifyApi.setAccessToken(props.token);
+    // }, [props.token]);
+
+    // spotifyApi.setAccessToken("BQBMBIHZcE-IAuaIhf6pZhhbug-iG3WX2o9XhO3q9CgUMpUdgy7BY2RmfXuJSiTEScTeuzw2m8Hi75_eWU9qkTKPO3hCkSF567l8FfA0pxZHUvaWSbW4F2l8amqCbLaunmpPiMo8ZOjDhNHwwCkFFTVonm456L54fSHOUcY1ECg_7xuUTuroZ51neaezxcdVow");
+    spotifyApi.setAccessToken(props.token);
 
     // To Load Current Playing Data as soon as page is loaded
     // DO NOT ADD OTHER FUNCTIONS
     // Reloads every 1 second to refresh current track
     useEffect(() => {
+        console.log("TOKEN:",props.token);
         const interval = setInterval(() => {
             getCurrentlyPlaying();
             spotifyApi.getMyCurrentPlaybackState().then(function(data) {
