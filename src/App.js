@@ -1,27 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import './css/App.css';
-import WebPlayback from './WebPlayback'
-import Home from './Home';
+import LoggedMain from './parts/loggedMain'
+import Home from './parts/unlogged';
 
 
 function App() {
-  const [token, setToken] = useState('');
+  // const [token, setToken] = useState('');
+  // const [refresh, setRefresh] = useState('');
 
-  useEffect(() => {
+  // const tokens = {
+  //   access: token,
+  //   refresh: refresh
+  // }
 
-    async function getToken() {
-      const response = await fetch('/auth/token');
-      const json = await response.json();
-      setToken(json.access_token);
+  // const TokenContext = React.createContext(tokens)
+
+  const code = new URLSearchParams(window.location.search).get('code');
+
+  const LocalToken = localStorage.getItem('AuthCode');
+
+  const Foundtoken = () => {
+    if(localStorage.getItem('AuthCode')){
+      return(<LoggedMain token={LocalToken}/>);
     }
+    if(code){
+      return(<LoggedMain code={code}/>);
+    }
+    else{
+      return(<Home/>);
+    }
+  }
 
-    getToken();
-
-  }, []);
 
   return (
     <>
-        { (token === '') ? <Home/> : <WebPlayback token={token} /> }
+        <Foundtoken/>
     </>
   );
 }

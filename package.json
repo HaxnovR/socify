@@ -6,6 +6,9 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.26.1",
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -16,7 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "node server/index.js",
     "eject": "react-scripts eject",
     "server": "node server",
     "dev": "run-p server start"
