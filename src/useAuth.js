@@ -6,7 +6,8 @@ export default function UseAuth(code) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3000/auth/cred", { code })
+      .post("https://testsocify.herokuapp.com/auth/cred", { code })
+      // .post("http://localhost:3000/auth/cred", { code })
       .then((response) => {
 
         // If success then cut the code string from the URL and execute the other thing

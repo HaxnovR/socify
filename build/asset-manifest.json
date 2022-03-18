@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.a32b0928.css",
-    "main.js": "/static/js/main.141b6825.js",
+    "main.js": "/static/js/main.40ecf116.js",
     "static/js/787.0c3f432a.chunk.js": "/static/js/787.0c3f432a.chunk.js",
     "static/media/CircularStd-Black.otf": "/static/media/CircularStd-Black.757b8ac8efa71be3fcd0.otf",
     "static/media/Moon Light.otf": "/static/media/Moon Light.b64abc268d3e51c92d4c.otf",
@@ -11,11 +11,11 @@
     "static/media/forward.svg": "/static/media/forward.b9791d103ee28a5e99d8.svg",
     "static/media/back.svg": "/static/media/back.59654869a324dd270ca6.svg",
     "main.a32b0928.css.map": "/static/css/main.a32b0928.css.map",
-    "main.141b6825.js.map": "/static/js/main.141b6825.js.map",
+    "main.40ecf116.js.map": "/static/js/main.40ecf116.js.map",
     "787.0c3f432a.chunk.js.map": "/static/js/787.0c3f432a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a32b0928.css",
-    "static/js/main.141b6825.js"
+    "static/js/main.40ecf116.js"
   ]
 }
