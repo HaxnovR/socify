@@ -2,6 +2,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
+var bodyParser = require("body-parser");
 
 var access_token = '';
 var refresh_token = '';
@@ -15,9 +16,11 @@ const app = express();
 
 const spotify_client_id = process.env.SPOTIFY_CLIENT_ID
 const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET
-const spotify_redirect_uri = 'https://testsocify.herokuapp.com/auth/callback'
-// const spotify_redirect_uri = 'http://localhost:3000/auth/callback'
+// const spotify_redirect_uri = 'https://testsocify.herokuapp.com/auth/callback'
+const spotify_redirect_uri = 'http://localhost:3000/auth/callback'
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '../build')));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
@@ -33,9 +36,13 @@ const randomState = function (length) {
     return text;
 };
 
-const scopes = ['user-read-private', 'user-read-email',
-'user-modify-playback-state','user-read-playback-state','user-read-currently-playing'
-,'streaming','user-read-recently-played'],
+const scopes = ['user-read-private',
+  'user-read-email',
+  'user-modify-playback-state',
+  'user-read-playback-state',
+  'user-read-currently-playing',
+  'streaming',
+  'user-read-recently-played'],
   redirectUri = spotify_redirect_uri,
   clientId = spotify_client_id,
   state = randomState(16),
@@ -83,6 +90,10 @@ app.get('/auth/token', (req, res) => {
     refresh_token: refresh_token
   });
 })
+
+// app.get('/auth/cred', (req, res) => {
+//   console.log(req.body);
+// })
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)
