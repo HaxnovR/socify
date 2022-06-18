@@ -1,7 +1,12 @@
 # Socify
-###Read README before working on this project
+
+<img src="https://user-images.githubusercontent.com/60336295/174442559-bf0a3d70-8467-4b66-9b76-5cc3f13415d3.png" align="right" />
+
+### Read README before working on this project
 
 ---
+
+
 
 
 
