@@ -10,25 +10,27 @@ var refresh_token = '';
 
 dotenv.config();
 
-const port = process.env.PORT || 3000;
+const port = 5000;
 console.log('Found on PORT =',port);
 
 const app = express();
 
 const spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
 const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-const spotify_redirect_uri = 'https://testsocify.herokuapp.com/'
-// const spotify_redirect_uri = 'http://localhost:3000/'
+// const spotify_redirect_uri = 'https://testsocify.herokuapp.com/'
+const spotify_redirect_uri = 'http://localhost:3000/'
 
 app.use(cors());
 app.use(express.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../build')));
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
+
+// // Run Static builded website
+// app.use(express.static(path.join(__dirname, '../build')));
+// app.get('/', function (req, res) {
+//   res.sendFile(path.join(__dirname, '../build', 'index.html'));
+// });
 
 const randomState = function (length) {
     var text = '';
