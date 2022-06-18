@@ -15,7 +15,9 @@
 
 **To run Site**
 `npm run dev` -  Run both frontend and server (requires)
+
 `npm run start` - Run only frontend (default port _3000_ on localhost)
+
 `node server` - Run only Server (default port _5000_ on localhost)
 
 ---
