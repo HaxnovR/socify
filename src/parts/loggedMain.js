@@ -1,8 +1,9 @@
 import WebPlayback from "../WebPlayback";
 import Header from "./header";
+import Explore from "./Explore";
+import Lobbies from "./Lobbies"
 import UseAuth from "../useAuth";
-import React, { useState, useEffect } from 'react'
-import { useRef } from "react/cjs/react.production.min";
+import React, { useEffect } from 'react'
 
 const LoggedMain = (props) =>{
     let accessToken
@@ -35,16 +36,40 @@ const LoggedMain = (props) =>{
             </>
         )
     }
+    let path = window.location.pathname;
+    console.log(path);
+    const Home = () => {
+        return(
+            <>
+                 <div className="welcome">
+                     <h1 className='intro'>Home Page</h1>
+                     <a className="login" onClick={Logout} href="/">Logout</a>
+                 </div>
+            </>
+        )
+    }
+
+    const ReturnPath = () => {
+        if(path==="/explore"){
+            return <Explore token={accessToken} />
+        }
+        if(path==="/lobbies"){
+            return <Lobbies/>
+        }
+        else{
+            return <Home/>
+        }
+    }
+    
     const Hasloaded = () => {
         localStorage.setItem('AuthCode',accessToken);
         return(
             <>
                 <div className="App">
                 <Header/>
-                 <div className="welcome">
-                     <h1 className='intro'>Under Development</h1>
-                     <a className="login" onClick={Logout} href="/">Logout</a>
-                 </div>
+                <div>
+                    <ReturnPath/>
+                </div>
                  <div className='limitHeight'>
                    <div className="vid_contain"></div>
                  </div>

@@ -17,7 +17,7 @@ const userinfo = {
     premium: false
 }
 
-const WebPlayback = (props, {token}) => {
+const WebPlayback = (props) => {
     var spotifyApi = new SpotifyWebApi();
 
     spotifyApi.setAccessToken(props.token);
@@ -69,7 +69,7 @@ const WebPlayback = (props, {token}) => {
         window.onSpotifyWebPlaybackSDKReady = () => {
 
             const player = new window.Spotify.Player({
-                name: 'Socify Web',
+                name: 'SOCIFY',
                 getOAuthToken: cb => { cb(props.token); },
                 volume: 0.5
             });

@@ -1,47 +1,17 @@
-const SpotifyWebApi = require('spotify-web-api-node');
-const dotenv = require('dotenv');
+const SpotifyWebApi = require("spotify-web-api-node");
 
-dotenv.config();
+const links = ['1HZlFq0Ebjrvy12Cuw5hQG','5IEX6CpD9ZhUeacEMjMpGP','2znryEij05Rt0UDk9XD7Im'];
+let info = []
+let image = []
 
-const randomState = function (length) {
-    var text = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+var spotifyApi = new SpotifyWebApi();
+spotifyApi.setAccessToken('BQBkXwycLXMbzD4YPisn1dyUzH3dP_ss0qnVhJcmZ5Ee8Vi1n3fGUjGM2eAq4JwcEP9kz1eC7fAk5hp5iYg8Lj0x6Ge0FLI7KJ7FXh0iDxCR-LxXTgxIRowHZxnIL8pSo3xRNmo1vvp7dPMJf-R9hnR34JyQbWc04v0H-2J-jnTEoaAVC-LylZFntU361-P3qsGLIuAg9Q4MsH_gI6PEIwwYvwNuJAk-KSU');
+        
 
-    for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-};
-
-const scopes = ['user-read-private', 'user-read-email','streaming'],
-  redirectUri = 'http://localhost:3000/auth/callback',
-  clientId = process.env.SPOTIFY_CLIENT_ID,
-  state = randomState(16),
-  showDialog = true;
-
-// Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
-var spotifyApi = new SpotifyWebApi({
-  redirectUri: redirectUri,
-  clientId: clientId
+links.forEach(link => {
+  spotifyApi.getPlaylist(link).then(function(data) {
+    info.push(data.body.name);
+    image.push(data.body.images[0].url);
+    console.log(info,"|",image)
+  })
 });
-
-// Create the authorization URL
-var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state, showDialog);
-
-// https://accounts.spotify.com:443/authorize?client_id=5fe01282e44241328a84e7c5cc169165&response_type=code&redirect_uri=https://example.com/callback&scope=user-read-private%20user-read-email&state=some-state-of-my-choice
-console.log(authorizeURL);
-
-// spotifyApi.authorizationCodeGrant(state).then(
-//     function(data) {
-//       console.log('The token expires in ' + data.body['expires_in']);
-//       console.log('The access token is ' + data.body['access_token']);
-//       console.log('The refresh token is ' + data.body['refresh_token']);
-  
-//       // Set the access token on the API object to use it in later calls
-//       spotifyApi.setAccessToken(data.body['access_token']);
-//       spotifyApi.setRefreshToken(data.body['refresh_token']);
-//     },
-//     function(err) {
-//       console.log('Something went wrong!', err);
-//     }
-//   );

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import React from 'react';
 import './css/App.css';
 import LoggedMain from './parts/loggedMain'
 import Home from './parts/unlogged';
