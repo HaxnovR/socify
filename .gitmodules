@@ -1,0 +1,3 @@
+[submodule "socify-server"]
+	path = socify-server
+	url = https://github.com/HaxnovR/socify-server
