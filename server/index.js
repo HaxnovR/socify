@@ -10,7 +10,7 @@ var refresh_token = '';
 
 dotenv.config();
 
-const port = 5000;
+const port = 3000;
 console.log('Found on PORT =',port);
 
 const app = express();
