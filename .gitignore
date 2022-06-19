@@ -1,5 +1,7 @@
 *.env
 /server/public
+test.js
+/socify-server
 
 # dependencies
 */node_modules

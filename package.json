@@ -19,9 +19,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "node server/index.js",
+    "test": "node socify-server/index.js",
     "eject": "react-scripts eject",
-    "server": "node server",
+    "server": "node socify-server",
     "dev": "run-p server start"
   },
   "eslintConfig": {
