@@ -8,8 +8,8 @@ const port = process.env.PORT || 5000;
 module.exports = function (app) {
     app.use('/auth/**', 
         createProxyMiddleware({ 
-            target: 'http://localhost:5000' // server location
-            // target: `https://testsocify.herokuapp.com:5000` // server location
+            // target: 'http://localhost:5000' // server location
+            target: `https://socifyserver.herokuapp.com` // server location
         })
     );
 };
