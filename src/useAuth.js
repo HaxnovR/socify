@@ -6,7 +6,7 @@ export default function UseAuth(code) {
 
   useEffect(() => {
     axios
-      .post("https://testsocify.herokuapp.com/auth/cred", { code }) // website location
+      .post("https://socifyserver.herokuapp.com/auth/cred", { code }) // website location
       // .post("http://localhost:3000/auth/cred", { code }) // website location
       .then((response) => {
 
