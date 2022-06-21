@@ -1,4 +1,3 @@
-import react from "react";
 import Header from './header';
 
 function Home() {
@@ -8,7 +7,8 @@ function Home() {
   
         <div className="welcome">
             <h1 className='intro'>Welcome to Socify</h1>
-            <a className="login" href="/auth/login">Log in</a>
+            <a className="login" href="https://socifyserver.herokuapp.com/auth/login">Log in</a>
+            {/* <a className="login" href="/auth/login">Log in</a> */}
         </div>
         <div className='limitHeight'>
           <div className="vid_contain"></div>

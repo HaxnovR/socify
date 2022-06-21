@@ -9,7 +9,7 @@ module.exports = function (app) {
     app.use('/auth/**', 
         createProxyMiddleware({ 
             // target: 'http://localhost:3000' // server location
-            target: `https://testsocify.herokuapp.com` // server location
+            target: `https://socifyserver.herokuapp.com` // server location
         })
     );
 };
