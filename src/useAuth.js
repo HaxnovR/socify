@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const server = "http://localhost:5000";
+// const server = "https://socifyserver.herokuapp.com";
+
 export default function UseAuth(code) {
   const [accessToken, setAccessToken] = useState();
 
   useEffect(() => {
     axios
-      .post("https://socifyserver.herokuapp.com/auth/cred", { code }) // website location
-      // .post("http://localhost:3000/auth/cred", { code }) // website location
+      .post(`${server}/auth/cred`, { code }) // server location
       .then((response) => {
 
         // If success then cut the code string from the URL and execute the other thing

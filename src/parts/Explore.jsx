@@ -61,18 +61,18 @@ const Explore = () => {
                 <h1 className='intro'>Explore</h1>
 
                 <div className='playlist-stack'>
-                    <pl1 className='playlist-display' >
-                        <img src={pl1.image} alt="pl1" width="120px" />
+                    <div className='playlist-display' >
+                        <img src={pl1.image} alt="pl1" width="160px" />
                         <a href={pl1.url} target="_blank" rel="noopener noreferrer" >{pl1.name}</a>
-                    </pl1>
-                    <pl2 className='playlist-display' >
-                        <img src={pl2.image} alt="pl2" width="120px" />
+                    </div>
+                    <div className='playlist-display' >
+                        <img src={pl2.image} alt="pl2" width="160px" />
                         <a href={pl2.url} target="_blank" rel="noopener noreferrer" >{pl2.name}</a>
-                    </pl2>
-                    <pl3 className='playlist-display' >
-                        <img src={pl3.image} alt="pl3" width="120px" />
+                    </div>
+                    <div className='playlist-display' >
+                        <img src={pl3.image} alt="pl3" width="160px" />
                         <a href={pl3.url} target="_blank" rel="noopener noreferrer" >{pl3.name}</a>
-                    </pl3>
+                    </div>
                 </div>
             </div>
         </>

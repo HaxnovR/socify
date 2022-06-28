@@ -16,7 +16,6 @@ function App() {
   // const TokenContext = React.createContext(tokens)
 
   const code = new URLSearchParams(window.location.search).get('code');
-  console.log("CODE:",code)
 
   const LocalToken = localStorage.getItem('AuthCode');
 

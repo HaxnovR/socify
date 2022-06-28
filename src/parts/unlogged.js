@@ -1,5 +1,9 @@
 import Header from './header';
 
+const server = "http://localhost:5000"
+// const server = "https://socifyserver.herokuapp.com"
+const href = `${server}/auth/login`;
+
 function Home() {
     return (
       <div className="App">
@@ -7,7 +11,7 @@ function Home() {
   
         <div className="welcome">
             <h1 className='intro'>Welcome to Socify</h1>
-            <a className="login" href="https://socifyserver.herokuapp.com/auth/login">Log in</a>
+            <a className="login" href={href}>Log in</a>
             {/* <a className="login" href="/auth/login">Log in</a> */}
         </div>
         <div className='limitHeight'>

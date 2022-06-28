@@ -3,13 +3,12 @@ const dotenv = require('dotenv');
 
 dotenv.config()
 
-const port = process.env.PORT || 5000;
+const server = process.env.SERVER;
 
 module.exports = function (app) {
     app.use('/auth/**', 
         createProxyMiddleware({ 
-            // target: 'http://localhost:3000' // server location
-            target: `https://socifyserver.herokuapp.com:${port}` // server location
+            target: `${server}` // server location
         })
     );
 };
