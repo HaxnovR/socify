@@ -11,7 +11,7 @@
 
 
 ### Run Build
-**To initialize run** `npm install`
+**To initialize node package and install dependencies** `npm install`
 
 **To run Site**
 `npm run dev` -  Run both frontend and server (requires)
