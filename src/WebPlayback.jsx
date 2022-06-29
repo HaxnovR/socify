@@ -21,6 +21,7 @@ const WebPlayback = (props) => {
     var spotifyApi = new SpotifyWebApi();
 
     spotifyApi.setAccessToken(props.token);
+    spotifyApi.setRefreshToken(props.refresh);
 
     // To Load Current Playing Data as soon as page is loaded
     // DO NOT ADD OTHER FUNCTIONS

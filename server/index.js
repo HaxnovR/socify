@@ -82,8 +82,10 @@ app.post('/auth/cred', (req,res) => {
       spotifyApi.authorizationCodeGrant(code).then((data) => {
   
           // Returning the User's AccessToken in the json formate  
+          console.log("logger:", data.body)
           res.json({
               accessToken : data.body.access_token,
+              refreshToken : data.body.refresh_token
           }) 
       })
       .catch((err) => {

@@ -7,13 +7,17 @@ import React, { useEffect } from 'react'
 
 const LoggedMain = (props) =>{
     let accessToken
+    let refreshToken
+    let tokens
     if(props.token !== undefined){
-        console.log('Local Token Found :',props.token);
+        console.log('Local Token Found');
         accessToken = props.token;
     }
     else{
-        console.log('Used new Token from Code:',props.code);
-        accessToken = UseAuth(props.code);
+        console.log('Used new Token from Code');
+        tokens = UseAuth(props.code);
+        accessToken = tokens[0]
+        refreshToken = tokens[1]
     }
     const [isLoading, setIsLoading] = React.useState(true);
 
@@ -51,7 +55,7 @@ const LoggedMain = (props) =>{
 
     const ReturnPath = () => {
         if(path==="/explore"){
-            return <Explore token={accessToken} />
+            return <Explore token={accessToken} refresh={refreshToken}/>
         }
         if(path==="/lobbies"){
             return <Lobbies/>
@@ -74,7 +78,7 @@ const LoggedMain = (props) =>{
                    <div className="vid_contain"></div>
                  </div>
                 </div>
-                <WebPlayback token={accessToken} /*refresh={props.refresh}*/ />
+                <WebPlayback token={accessToken} refresh={refreshToken} />
             </>
         )
     }
