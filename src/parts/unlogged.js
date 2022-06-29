@@ -1,7 +1,7 @@
 import Header from './header';
 
-const server = "http://localhost:5000"
-// const server = "https://socifyserver.herokuapp.com"
+// const server = "http://localhost:5000"
+const server = "https://socifyserver.herokuapp.com"
 const href = `${server}/auth/login`;
 
 function Home() {

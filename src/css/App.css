@@ -49,9 +49,9 @@ a{
 
 /* Nav Button Links ---------------------------------------- */
 .Button{
-  font-size: 16px;
+  font-size: 18px;
   padding: 10px 10px;
-  margin: 18px;
+  margin: 36px;
   border-radius: 50px;
   transition: background 0.45s, color 0.45s;
 }
@@ -73,8 +73,8 @@ a{
 
 
 .vid_contain {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://gotiny.cc/m5xwtn");
-  filter: blur(15px);
+  background: linear-gradient(rgba(49, 23, 11, 0.5), rgba(22, 40, 48, 0.5)), url("https://images.unsplash.com/photo-1632516643720-e7f5d7d6ecc9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2022&q=80");
+  filter: blur(18px);
   z-index: -5;
   position: fixed;
   top: 0;
@@ -96,7 +96,7 @@ a{
   margin-right: 20px;
   text-align: center;
   align-items: center;
-  margin-left: 55px;
+  margin-left: 20px;
 }
 #search{
   color: white;
@@ -191,15 +191,14 @@ a{
 .player{
   width: 16vw;
   height: 40vh;
-  text-align:right;
-  position: absolute;
-  bottom: 0; right: 0;
-  margin-bottom: 20px;
-  z-index: +7;
+  /* position: absolute;
+  bottom: 0; 
+  right: 0; */
+  z-index: +3;
 }
 .main-wrapper{
   text-align: center;
-  background-color: #141414c9;
+  background-color: #1b1b1b6c;
   padding: 15px;
   border-radius: 15px;
   position: absolute;
@@ -217,31 +216,36 @@ a{
   font-size: 16px;
   color: white;
   text-align: center;
-  filter: drop-shadow(0px 0px 15px #000000c5);
+  filter: drop-shadow(0px 0px 5px #0000009f);
 }
 .now-playing__artist{
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
-  color: #c7c7c7;
+  color: #8b8b8b;
   margin-bottom: 10px;
+  filter: drop-shadow(0px 0px 5px #0000009f);
 }
 .btn-back{
   width: 3em;
   height: 3em;
   background-color: #141414;
   background: url('../svg/back.svg')center no-repeat;
+  filter: drop-shadow(0px 0px 5px #0000009f);
+  
 }
 .btn-forward{
   width: 3em;
   height: 3em;
   background-color: #141414;
   background: url('../svg/forward.svg')center no-repeat;
+  filter: drop-shadow(0px 0px 5px #0000009f);
 }
 .btn-play{
   width: 3em;
   height: 3em;
   background-color: #141414;
   background: url('../svg/video.svg')center no-repeat;
+  filter: drop-shadow(0px 0px 5px #0000009f);
 }
 .btn-pause{
   width: 3em;
@@ -275,44 +279,49 @@ a{
   background-color: transparent;
   border: none;
   cursor: pointer;
-  display: flex;
+  display: none;
   padding: 12px 10px;
 }
-.line {
-  fill: none;
-  stroke: white;
-  stroke-width: 6;
-  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
-    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+
+
+
+@media screen and (max-width: 1270px){
+  .Button{
+    margin: 14px;
+  }
 }
-.line1 {
-  stroke-dasharray: 60 207;
-  stroke-width: 6;
+
+@media screen and (max-width: 1060px){
+  .Button{
+    margin: 2px;
+  }
 }
-.line2 {
-  stroke-dasharray: 60 60;
-  stroke-width: 6;
-}
-.line3 {
-  stroke-dasharray: 60 207;
-  stroke-width: 6;
-}
-.opened .line1 {
-  stroke-dasharray: 90 207;
-  stroke-dashoffset: -134;
-  stroke-width: 6;
-}
-.opened .line2 {
-  stroke-dasharray: 1 60;
-  stroke-dashoffset: -30;
-  stroke-width: 6;
-}
-.opened .line3 {
-  stroke-dasharray: 90 207;
-  stroke-dashoffset: -134;
-  stroke-width: 6;
-}
-@media screen and (max-width: 992px){
+
+@media screen and (max-width: 960px){
+  .responsive-btn{
+    text-align: center;
+    /* padding-right: 500px; */
+    /* padding-top: 100px; */
+    padding-block: 40vw;
+  }
+  .rendered-head{
+    display: block;
+    height: 100vh;
+    z-index: 4;
+    position:fixed;
+    background-color: #141414;
+    opacity: 98%;
+    animation: menu-nav 0.27s;
+  }
+  .rendered-head .Button{
+    padding-inline: 20vw;
+    display:inline-block;
+    font-size: 40px;
+    /* float: left; */
+  }
+  .menu{
+    display: flex;
+  }
   .head {
     float: right;
     width: 100%;
@@ -334,6 +343,40 @@ a{
     margin-bottom: 10px;
     display: none;
   }
+  .line {
+    fill: none;
+    stroke: white;
+    stroke-width: 6;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .line1 {
+    stroke-dasharray: 60 207;
+    stroke-width: 6;
+  }
+  .line2 {
+    stroke-dasharray: 60 60;
+    stroke-width: 6;
+  }
+  .line3 {
+    stroke-dasharray: 60 207;
+    stroke-width: 6;
+  }
+  .opened .line1 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+    stroke-width: 6;
+  }
+  .opened .line2 {
+    stroke-dasharray: 1 60;
+    stroke-dashoffset: -30;
+    stroke-width: 6;
+  }
+  .opened .line3 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+    stroke-width: 6;
+  }
 }
 
 @keyframes background{
@@ -342,5 +385,14 @@ a{
   }
   100%{
     top: -500px;
+  }
+}
+
+@keyframes menu-nav{
+  0%{
+    opacity: 0%;
+  }
+  100%{
+    opacity: 98%;
   }
 }
