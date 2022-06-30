@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import { scaleDown as Menu } from 'react-burger-menu'
 
 function Header(){
     async function switchPage(){
