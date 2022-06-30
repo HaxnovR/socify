@@ -208,7 +208,9 @@ a{
 }
 .playlist-display {
   display:grid;
-  
+   float: left;
+  padding-right: 30px;
+  padding-left: 30px; 
 }
 .playlist-display img{
   padding: 20px;
@@ -358,6 +360,7 @@ a{
   }
   .playlist-display a {
     padding-right: 30px;
+    padding-left: 30px;
   }
     
   .menu{
