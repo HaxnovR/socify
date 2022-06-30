@@ -192,11 +192,12 @@ a{
 .player{
   width: 200px;
   height: 340px;
-   position: absolute;
+  position: fixed;
   bottom: 0; 
   right: 0; 
   z-index: +3;
-  padding-bottom: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .playlist-stack{
@@ -284,7 +285,7 @@ a{
 .Username{
   font-size: 22px;
   text-align:left;
-  position: absolute;
+  position: fixed;
   bottom: 0; left: 0;
   color: white;
   padding: 10px;

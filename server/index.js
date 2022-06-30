@@ -10,13 +10,16 @@ var refresh_token = '';
 
 dotenv.config();
 
-const port = 5000;
+// const port = process.env.PORT; //production
+const port = 5000; //testing
+
 console.log('Found on PORT =',port);
 
 const app = express();
 
 const spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
 const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET;
+
 // const spotify_redirect_uri = 'https://testsocify.herokuapp.com/'
 const spotify_redirect_uri = 'http://localhost:3000/'
 
@@ -28,10 +31,10 @@ app.use(bodyParser.json());
 
 // Run Static builded website
 // Update Build in root folder
-app.use(express.static(path.join(__dirname, '../build')));
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
+// app.use(express.static(path.join(__dirname, '../build')));
+// app.get('/', function (req, res) {
+//   res.sendFile(path.join(__dirname, '../build', 'index.html'));
+// });
 
 const randomState = function (length) {
     var text = '';
@@ -94,6 +97,34 @@ app.post('/auth/cred', (req,res) => {
       })
   
   })
+
+
+const links = ['1HZlFq0Ebjrvy12Cuw5hQG','5IEX6CpD9ZhUeacEMjMpGP','2znryEij05Rt0UDk9XD7Im','0HlhVnYUmzL7p7kdW2mn4i','3eY5obY2DtnSPiipASQt8G','6vem1g9dGwTG7XogsjIaew'];
+
+let playlists = []
+    spotifyApi.clientCredentialsGrant().then(
+      function(data){
+        spotifyApi.setAccessToken(data.body['access_token']);
+        links.forEach(link => {
+          spotifyApi.getPlaylist(link).then(function(data) {
+            let playlist = {
+              "name": data.body.name,
+              "image": data.body.images[0].url,
+              "url": data.body.external_urls.spotify
+            }
+            playlists.push(playlist)
+            
+          })
+        });
+        app.get('/api/playlists', (req,res) => {
+          res.json({
+            plst : playlists
+          }) 
+        })
+      }
+    )
+
+  
 
 // app.get('/auth/callback', (req, res) => {
 

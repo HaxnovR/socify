@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import './css/App.css';
 import LoggedMain from './parts/loggedMain'
 import Home from './parts/unlogged';
@@ -18,6 +18,8 @@ function App() {
   const code = new URLSearchParams(window.location.search).get('code');
 
   const LocalToken = localStorage.getItem('AuthCode');
+
+  
 
   const Foundtoken = () => {
     if(localStorage.getItem('AuthCode')){

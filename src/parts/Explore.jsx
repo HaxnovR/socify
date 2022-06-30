@@ -4,8 +4,6 @@ import SpotifyWebApi from 'spotify-web-api-node';
 const token = localStorage.getItem('AuthCode');
 
 
-const links = ['1HZlFq0Ebjrvy12Cuw5hQG','5IEX6CpD9ZhUeacEMjMpGP','2znryEij05Rt0UDk9XD7Im'];
-
 const info = {
     name: "",
     image: "",
@@ -16,44 +14,52 @@ var spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(token);
 
 
-const Explore = () => {
+const Explore = (props) => { 
 
-    const[pl1,setpl1] = useState(info);
-    const[pl2,setpl2] = useState(info);
-    const[pl3,setpl3] = useState(info);
 
-    async function getPlaylists() {
-        spotifyApi.getPlaylist(links[0]).then(function(data) {
-            setpl1(
-                {
-                name: data.body.name,
-                image: data.body.images[0].url,
-                url: data.body.external_urls.spotify
-            });
-        })
-        spotifyApi.getPlaylist(links[1]).then(function(data) {
-            setpl2(
-                {
-                name: data.body.name,
-                image: data.body.images[0].url,
-                url: data.body.external_urls.spotify
-            });
-        })
-        spotifyApi.getPlaylist(links[2]).then(function(data) {
-            setpl3(
-                {
-                name: data.body.name,
-                image: data.body.images[0].url,
-                url: data.body.external_urls.spotify
-            });
-        })
-    }
+
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [items, setItems] = useState([]);
+
 
     useEffect(() => {
-        getPlaylists();
-    }, []);
+        fetch("https://socifyserver.herokuapp.com/api/playlists")
+          .then(res => res.json())
+          .then(
+            (result) => {
+                setIsLoaded(true);
+                setItems(result.plst);
+            },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.
+            (error) => {
+                setIsLoaded(true);
+            }
+          )
+      }, [])
+
     
-    console.log(pl1.url);
+    
+    console.log(props.playlists);
+
+    const PlaylistHolder = () => {
+        if (!isLoaded) {
+            return <div>Loading...</div>;
+        } 
+        else{
+            return (
+                <div>
+                    {items.map(item => (
+                        <div className='playlist-display' >
+                            <img src={item.image} alt="pl1" width="160px" />
+                            <a href={item.url} target="_blank" rel="noopener noreferrer" >{item.name}</a>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+    }
 
     return(
         <>
@@ -61,18 +67,7 @@ const Explore = () => {
                 <h1 className='intro'>Explore</h1>
 
                 <div className='playlist-stack'>
-                    <div className='playlist-display' >
-                        <img src={pl1.image} alt="pl1" width="160px" />
-                        <a href={pl1.url} target="_blank" rel="noopener noreferrer" >{pl1.name}</a>
-                    </div>
-                    <div className='playlist-display' >
-                        <img src={pl2.image} alt="pl2" width="160px" />
-                        <a href={pl2.url} target="_blank" rel="noopener noreferrer" >{pl2.name}</a>
-                    </div>
-                    <div className='playlist-display' >
-                        <img src={pl3.image} alt="pl3" width="160px" />
-                        <a href={pl3.url} target="_blank" rel="noopener noreferrer" >{pl3.name}</a>
-                    </div>
+                    <PlaylistHolder/>
                 </div>
             </div>
         </>
