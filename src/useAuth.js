@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// const server = "http://localhost:5000";
-const server = "https://socifyserver.herokuapp.com";
+const server = "http://localhost:5000";
+// const server = "https://socifyserver.herokuapp.com";
 
 export default function UseAuth(code) {
   const [accessToken, setAccessToken] = useState();
