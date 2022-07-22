@@ -2,6 +2,7 @@ import WebPlayback from "../WebPlayback";
 import Header from "./header";
 import Explore from "./Explore";
 import Lobbies from "./Lobbies"
+import Session from "./Session"
 import UseAuth from "../useAuth";
 import React, { useEffect } from 'react'
 
@@ -59,6 +60,9 @@ const LoggedMain = (props) =>{
         }
         if(path==="/lobbies"){
             return <Lobbies/>
+        }
+        if(path==="/session"){
+            return <Session/>
         }
         else{
             return <Home/>

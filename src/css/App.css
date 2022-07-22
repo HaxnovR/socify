@@ -53,6 +53,7 @@ a{
   padding: 10px 10px;
   margin: 36px;
   border-radius: 50px;
+  background-color: #141414;
   transition: background 0.45s, color 0.45s;
 }
 .Button:link {

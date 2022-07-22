@@ -124,6 +124,14 @@ let playlists = []
       }
     )
 
+app.get('/lobby/room', (req,res) => {
+  //  setup 
+  
+  //  Get the "code" value posted from the client-side and get the user's accessToken from the spotify api     
+      const code = req.body.code
+  
+  })
+
   
 
 // app.get('/auth/callback', (req, res) => {

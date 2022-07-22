@@ -47,7 +47,7 @@ function Header(){
             </button>
             <nav className="head">
                 <a className='Button' href="/">Home</a>
-                <a className='Button' href="/sessions">Listen along</a>
+                <a className='Button' href="/session">Listen along</a>
                 <a className='Button' href="/explore">Explore</a>
                 <a className='Button' href="/lobbies">Lobbies</a>
                 <a className="Button" onClick={Logout} href="/">Logout</a>
