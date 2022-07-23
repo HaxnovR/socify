@@ -46,10 +46,9 @@ const LoggedMain = (props) =>{
     const Home = () => {
         return(
             <>
-                 {/* <div className="welcome">
+                  <div className="welcome">
                      <h1 className='intro'>Home Page</h1>
-                     <a className="login" onClick={Logout} href="/">Logout</a>
-                 </div> */}
+                 </div> 
             </>
         )
     }
