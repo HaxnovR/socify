@@ -79,8 +79,8 @@ a{
   z-index: -5;
   position: fixed;
   top: 0;
-  left: -40px;
-  bottom: -40px;
+  left: -50px;
+  bottom: -50px;
   width: 200vw;
   /* min-height: 100vh;
   min-width: 100vw;
