@@ -4,9 +4,17 @@ import Explore from "./Explore";
 import Lobbies from "./Lobbies"
 import Session from "./Session"
 import UseAuth from "../useAuth";
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
 
-const LoggedMain = (props) =>{
+
+
+
+
+const LoggedMain = (props, {socket}) =>{
+    // const [isConnected, setIsConnected] = useState(socket.connected);
+
+
+    
     let accessToken
     let refreshToken
     let tokens
@@ -27,9 +35,17 @@ const LoggedMain = (props) =>{
     }
 
     useEffect(() => {
+        // newSocket.on('connect', () => {
+        //     console.log("Socket ID:", newSocket.id);
+        // });
         window.addEventListener("load",handleLoading);
-        return () => window.removeEventListener("load",handleLoading);
-    })
+        return () => {
+            // newSocket.off('connect');
+            // newSocket.close();
+            window.removeEventListener("load",handleLoading);
+        };
+    }, []);
+    
     const Logout = () => {
         localStorage.removeItem('AuthCode');
     }
@@ -61,7 +77,7 @@ const LoggedMain = (props) =>{
             return <Lobbies/>
         }
         if(path==="/session"){
-            return <Session/>
+            return <Session socket={socket}/>
         }
         else{
             return <Home/>

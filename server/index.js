@@ -4,6 +4,18 @@ const dotenv = require('dotenv');
 const path = require('path');
 const bodyParser = require("body-parser");
 const cors = require('cors');
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, { 
+  cors: {
+    origin: "http://localhost:3000",
+    // origin: "https://testsocify.herokuapp.com",
+    methods: ["GET", "POST"]
+  }
+});
 
 var access_token = '';
 var refresh_token = '';
@@ -14,8 +26,6 @@ dotenv.config();
 const port = 5000; //testing
 
 console.log('Found on PORT =',port);
-
-const app = express();
 
 const spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
 const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -83,9 +93,6 @@ app.post('/auth/cred', (req,res) => {
   
       // Retrieve an access token
       spotifyApi.authorizationCodeGrant(code).then((data) => {
-  
-          // Returning the User's AccessToken in the json formate  
-          console.log("logger:", data.body)
           res.json({
               accessToken : data.body.access_token,
               refreshToken : data.body.refresh_token
@@ -130,7 +137,14 @@ app.get('/lobby/room', (req,res) => {
   //  Get the "code" value posted from the client-side and get the user's accessToken from the spotify api     
       const code = req.body.code
   
+});
+
+io.on("connection", (socket) => {
+  console.log("client connected:",socket.id);
+  socket.on("hosting-req", (host) => {
+    console.log("Hosting requested by socket ID:", socket.id);
   })
+});
 
   
 
@@ -161,6 +175,6 @@ app.get('/lobby/room', (req,res) => {
 //   });
 // });
 
-app.listen(port, () => {
+httpServer.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)
 });

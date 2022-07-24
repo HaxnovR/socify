@@ -188,8 +188,6 @@ a{
   font-style: italic;
 }
 
-
-
 .player{
   width: 200px;
   height: 340px;
@@ -197,11 +195,10 @@ a{
   bottom: 0; 
   right: 0; 
   z-index: +3;
-  margin-right: 2.5vw;
-  margin-bottom: 2vh;
- 
-
-
+  margin-right: 2.5vh;
+  margin-bottom: 2.5vw;
+  padding-right: 20vh;
+  padding-bottom: 20vw;
 }
 
 .playlist-stack{

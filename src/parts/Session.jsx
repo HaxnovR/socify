@@ -1,7 +1,15 @@
 import { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
+import { io } from 'socket.io-client';
 
 const token = localStorage.getItem('AuthCode');
+
+// const socket = io('http://localhost:5000');
+// // const socket = io('https://socifyserver.herokuapp.com');
+
+// socket.on("connect", () => {
+//     console.log("ID:",socket.id);
+// });
 
 
 const info = {
@@ -14,20 +22,17 @@ var spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(token);
 
 
-const Session = (props) => { 
+const Session = ({socket}) => { 
 
 
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [items, setItems] = useState([]);
 
-    const sessionLink = () => {
-        var text = '';
-        var possible = 'abcdefghijklmnopqrstuvwxyz';
-        for (var i = 0; i < 7; i++) {
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-        return text;
+    const Hostroom = () => {
+        console.log("Hostroom Clicked");
+        console.log("clicked by ID:",socket.id);
+        socket.emit("hosting-req");
     }
 
 
@@ -48,14 +53,12 @@ const Session = (props) => {
           )
     }, [])
 
-    console.log("LINK: ", sessionLink());
-
 
     return(
         <>
             <div className="welcome">
                 <h1 className='intro'>Start Your Session</h1>
-                <a className='Button' href='https://google.com'>Host</a>
+                <a className='Button' onClick={Hostroom}>Host</a>
             </div>
         </>
     )
