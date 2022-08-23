@@ -19,38 +19,30 @@ const info = {
 }
 
 var spotifyApi = new SpotifyWebApi();
+
 spotifyApi.setAccessToken(token);
 
-
-const Session = ({socket}) => { 
-
-
-
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [items, setItems] = useState([]);
+const Session = ({socket, userID}) => { 
+    const[roomID, setRoomID] = useState('');
 
     const Hostroom = () => {
-        console.log("Hostroom Clicked");
-        console.log("clicked by ID:",socket.id);
-        socket.emit("hosting-req");
+        console.log("Hostroom Clicked", socket);
+        socket.emit("hosting-req", socket.id);
+        socket.on("room_id", (roomcode) => {
+            console.log("Recieved Room Code = ", roomcode);
+            setRoomID(roomcode);
+        })
+    }
+
+    const invitecode = (event) => {
+        event.preventDefault();
+        console.log(roomID, socket.id);
+        socket.emit("joining-req", userID, roomID);
     }
 
 
     useEffect(() => {
-        fetch("https://socifyserver.herokuapp.com/api/playlists")
-          .then(res => res.json())
-          .then(
-            (result) => {
-                setIsLoaded(true);
-                setItems(result.plst);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-                setIsLoaded(true);
-            }
-          )
+        
     }, [])
 
 
@@ -59,6 +51,16 @@ const Session = ({socket}) => {
             <div className="welcome">
                 <h1 className='intro'>Start Your Session</h1>
                 <a className='Button' onClick={Hostroom}>Host</a>
+                <form onSubmit={invitecode}>
+                <label className='search'>
+                    <input className='Button'
+                    type="text"
+                    value={roomID}
+                    onChange={(e) => setRoomID(e.target.value)}
+                    />
+                    </label>
+                    <input className='Button' type="submit" />
+                </form>
             </div>
         </>
     )

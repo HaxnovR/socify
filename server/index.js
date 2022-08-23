@@ -139,11 +139,60 @@ app.get('/lobby/room', (req,res) => {
   
 });
 
+const generate_room = function () {
+  var text = '';
+  var possible = 'abcdefghijklmnopqrstuvwxyz';
+
+  for (var i = 0; i < 8; i++) {
+    if(i==4 ? text+='-' : text += possible.charAt(Math.floor(Math.random() * possible.length)));
+  }
+  return text;
+};
+
+var clients =[];
+
 io.on("connection", (socket) => {
   console.log("client connected:",socket.id);
-  socket.on("hosting-req", (host) => {
-    console.log("Hosting requested by socket ID:", socket.id);
+
+  socket.once("hosting-req", (user) => {
+    console.log("Hosting requested by socket ID:", user);
+    let room_id = generate_room();
+    console.log("generated room code:", room_id);
+    socket.emit("room_id", room_id);
+    socket.join(room_id);
+    socket.rooms.forEach(room => {
+      if(room !== room_id)socket.leave(room);
+    });
   })
+
+  socket.on("joining-req", (user, invitecode) => {
+    console.log("Hosting requested by socket ID:", user);
+    let room_id = invitecode;
+    const arr = Array.from(io.sockets.adapter.rooms);
+    // socket.emit("room_id", room_id);
+    socket.join(room_id);
+    socket.rooms.forEach(room => {
+      if(room !== room_id)socket.leave(room);
+    });
+    console.log("available rooms:", arr);
+  })
+
+  socket.on('storeClientInfo', function (data) {
+      var clientInfo = new Object();
+      clientInfo.userId = data.customId;
+      clientInfo.clientId = socket.id;
+      clients.push(clientInfo);
+  });
+
+  socket.on('disconnect', function (data) {
+      for( var i=0, len=clients.length; i<len; ++i ){
+          var c = clients[i];
+          if(c.clientId == socket.id){
+              clients.splice(i,1);
+              break;
+          }
+      }
+  });
 });
 
   
